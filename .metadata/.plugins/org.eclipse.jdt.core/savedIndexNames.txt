@@ -1,0 +1,4 @@
+INDEX VERSION 1.134+/home/arax/Documents/kuliah/semester_3/pbo/praktikum/code/.metadata/.plugins/org.eclipse.jdt.core
+1666029514.index
+896786504.index
+1865797976.index
