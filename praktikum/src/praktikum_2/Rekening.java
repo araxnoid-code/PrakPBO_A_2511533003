@@ -63,6 +63,94 @@ public class Rekening {
         System.out.println("--------------------------");
     }
 
+    void PengeluaranTerbesarTerkecil(){
+        Transaksi terbesar = null;
+        Transaksi terkecil = null;
+        int len = this.riwayatTransaksi.size();
+
+        for(int i = 0; i < len; i++){
+            Transaksi transaksi = this.riwayatTransaksi.get(i);
+            if (!transaksi.jenis.equals("Debit")){
+                continue;
+            }
+
+            if (terbesar == null){
+                terbesar = transaksi;
+            } else {
+                if (transaksi.nominal > terbesar.nominal){
+                    terbesar = transaksi;
+                }
+            }
+
+            if (terkecil == null){
+                terkecil = transaksi;
+            } else {
+                if (transaksi.nominal < terkecil.nominal){
+                    terkecil = transaksi;
+                }
+            }
+        }
+
+        System.out.println("===================");
+        System.out.println("Pengeluaran Terbesar");
+        if (terbesar == null){
+            System.out.println("Tidak Ada Transaksi");
+        } else {
+            terbesar.cetakDetail();
+        }
+
+        System.out.println("Pengeluaran Terkecil");
+        if (terkecil == null){
+            System.out.println("Tidak Ada Transaksi");
+        } else {
+            terkecil.cetakDetail();
+        }
+    }
+
+    void PemasukanTerbesarTerkecil(){
+        Transaksi terbesar = null;
+        Transaksi terkecil = null;
+        int len = this.riwayatTransaksi.size();
+
+        for(int i = 0; i < len; i++){
+            Transaksi transaksi = this.riwayatTransaksi.get(i);
+            if (!transaksi.jenis.equals("Kredit")){
+                continue;
+            }
+
+            if (terbesar == null){
+                terbesar = transaksi;
+            } else {
+                if (transaksi.nominal > terbesar.nominal){
+                    terbesar = transaksi;
+                }
+            }
+
+            if (terkecil == null){
+                terkecil = transaksi;
+            } else {
+                if (transaksi.nominal < terkecil.nominal){
+                    terkecil = transaksi;
+                }
+            }
+        }
+
+        System.out.println("===================");
+        System.out.println("Pemasukan Terbesar");
+        if (terbesar == null){
+            System.out.println("Tidak Ada Transaksi");
+        } else {
+            terbesar.cetakDetail();
+        }
+
+        System.out.println("Pemasukan Terkecil");
+        if (terkecil == null){
+            System.out.println("Tidak Ada Transaksi");
+        } else {
+            terkecil.cetakDetail();
+        }
+    }
+
     public void cetakMutasi(){
         int len = this.riwayatTransaksi.size();
         if (len == 0) {
@@ -70,10 +158,25 @@ public class Rekening {
             return;
         }
 
+        if (len <= 3){
+            System.out.println("\nMutasi Transaksi: ");
+            for(int i = 0; i < len; i++){
+                Transaksi transaksi = this.riwayatTransaksi.get(i);
+                transaksi.cetakDetail();
+            }
+
+            this.PemasukanTerbesarTerkecil();
+            this.PengeluaranTerbesarTerkecil();
+            return;
+        }
+
         System.out.println("\nMutasi Transaksi: ");
-        for(int i = 0; i < len; i++){
+        for(int i = len - 1; i > len - 4; i--){
             Transaksi transaksi = this.riwayatTransaksi.get(i);
             transaksi.cetakDetail();
         }
+
+        this.PemasukanTerbesarTerkecil();
+        this.PengeluaranTerbesarTerkecil();
     }
 }
