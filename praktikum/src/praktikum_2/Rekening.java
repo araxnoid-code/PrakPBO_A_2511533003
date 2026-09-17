@@ -1,14 +1,19 @@
-package praktikum_1;
+package praktikum_2;
+
+import java.util.ArrayList;
 
 public class Rekening {
     String nomorRekening;
     String namaPemilik;
     double saldo;
 
+    ArrayList<Transaksi> riwayatTransaksi;
+
     public Rekening(String nomor, String nama, double SaldoAwal){
         this.nomorRekening = nomor;
         this.namaPemilik = nama;
         this.saldo = SaldoAwal;
+        this.riwayatTransaksi = new ArrayList<Transaksi>();
         System.out.println("Rekening atas nama " + this.namaPemilik + " Berhasil dibuat dengan saldo Rp" + this.saldo);
     }
 
@@ -22,6 +27,10 @@ public class Rekening {
 
         if (n > 0){
             this.saldo += n;
+
+            String idTrx = "TRX-S-" + System.currentTimeMillis();
+            Transaksi trxBaru = new Transaksi(idTrx, "Kredit", n);
+            this.riwayatTransaksi.add(trxBaru);
             System.out.println("Setor Tunai Rp" + nominal + " Berhasil. Saldo saat ini: Rp" + this.saldo);
         } else {
             System.out.println("Gagal: nominal setor harus lebih dari 0!");
