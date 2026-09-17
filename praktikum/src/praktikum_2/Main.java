@@ -20,6 +20,7 @@ public class Main {
             System.out.println("3. Tarik Tunai");
             System.out.println("4. Cek Informasi Rekening");
             System.out.println("5. Ganti Akun");
+            System.out.println("6. Cetak Mutasi(riwayat)");
             System.out.println("0. keluar");
             System.out.println("Pilih Menu: ");
 
@@ -88,6 +89,10 @@ public class Main {
                             int opsi = input.nextInt();
                             idx = opsi;
                         }
+                        break;
+
+                    case 6:
+                        listAkunAktif.get(idx).cetakMutasi();
                         break;
 
                     case 0:

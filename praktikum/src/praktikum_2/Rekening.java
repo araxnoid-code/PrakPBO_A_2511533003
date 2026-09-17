@@ -48,6 +48,10 @@ public class Rekening {
         }
 
         this.saldo -= nominal;
+
+        String idTrx = "TRX-T-" + System.currentTimeMillis();
+        Transaksi trxBaru = new Transaksi(idTrx, "Debit", nominal);
+        this.riwayatTransaksi.add(trxBaru);
         System.out.println("Penarikan Rp" + nominal + "Berhasil, saldo anda tersisa Rp" + this.saldo);
     }
 
@@ -57,5 +61,19 @@ public class Rekening {
         System.out.println("Nama Pemilik    :" + this.namaPemilik);
         System.out.println("Saldo Akhir     : Rp" + this.saldo);
         System.out.println("--------------------------");
+    }
+
+    public void cetakMutasi(){
+        int len = this.riwayatTransaksi.size();
+        if (len == 0) {
+            System.out.println("Belum ada transaksi pada rekening ini");
+            return;
+        }
+
+        System.out.println("\nMutasi Transaksi: ");
+        for(int i = 0; i < len; i++){
+            Transaksi transaksi = this.riwayatTransaksi.get(i);
+            transaksi.cetakDetail();
+        }
     }
 }
