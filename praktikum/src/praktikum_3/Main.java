@@ -35,9 +35,20 @@ public class Main {
                         System.out.println("Masukkan Nama Pemilik: ");
                         String namaPemilik = input.nextLine();
                         System.out.println("Masukkan Pin: ");
-                        String pin = input.nextLine();
+                        String pin = input.nextLine().trim();
                         System.out.println("Masukkan Saldo Awal: ");
 
+                        if (pin.length() != 6){
+                            System.out.println("Pin Harus sepanjang 6 Digit Angka");
+                            break;
+                        }
+
+                        try {
+                            Integer.parseInt(pin);
+                        } catch (NumberFormatException e){
+                            System.out.println("Pin Harus Berisi Angka");
+                            break;
+                        }
 
                         try{
                             double saldoAwal = input.nextDouble();
