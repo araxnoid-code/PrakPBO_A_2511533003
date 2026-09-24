@@ -50,6 +50,43 @@ public class Main {
                             break;
                         }
 
+                        //
+
+
+                        int a = -1;
+                        Boolean[] check = {false, false, false, false, false, false, false, false, false, false};
+                        boolean error = false;
+                        String msg = "";
+                        for (int i = 0; i < pin.length(); i++){
+                            int index = Integer.parseInt(pin.substring(i, i + 1));
+                            if (check[index]){
+                                error = true;
+                                msg = "Tidak Boleh Menggunakan Angka Berulang";
+                                break;
+                            }
+                            check[index] = true;
+
+                            if (a == -1){
+                                a = index;
+                            } else {
+                                if ((index - 1) == a){
+                                    error = true;
+                                    msg = "Tidak Boleh Berurutan";
+                                } else if ((index + 1) == a){
+                                    error = true;
+                                    msg = "Tidak Boleh Berurutan";
+                                }
+                                a = index;
+                            }
+
+                        }
+
+                        if (error){
+                            System.out.println(msg);
+                            break;
+                        }
+                        //
+
                         try{
                             double saldoAwal = input.nextDouble();
                             if (saldoAwal < 50000){
