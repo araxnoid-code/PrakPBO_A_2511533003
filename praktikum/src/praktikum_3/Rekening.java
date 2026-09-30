@@ -7,6 +7,7 @@ public class Rekening {
     private String namaPemilik;
     private double saldo;
     private String pin;
+
     int coba;
 
     private ArrayList<Transaksi> riwayatTransaksi;
@@ -27,6 +28,10 @@ public class Rekening {
         System.out.println("Rekening atas nama " + this.namaPemilik + " Berhasil dibuat dengan saldo Rp" + this.saldo);
     }
 
+    public boolean otentikasi(String pinInput){
+        return this.pin.equals(pinInput);
+    }
+
     public String getNomorRekening(){
         return this.nomorRekening;
     }
@@ -35,9 +40,6 @@ public class Rekening {
         return this.namaPemilik;
     }
 
-    public boolean otentikasi(String pinInput){
-        return this.pin.equals(pinInput);
-    }
 
     public boolean setorTunai(String nominal){
         double n;

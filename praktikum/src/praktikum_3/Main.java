@@ -123,8 +123,6 @@ public class Main {
                         if (listAkunAktif.get(idx).coba >= 3){
                             System.out.println("Akun Terblokir");
                         } else {
-
-
                         System.out.println("Masukkan Pin: ");
                         String checkPin = input.nextLine().trim();
                         if (!listAkunAktif.get(idx).otentikasi(checkPin)){
