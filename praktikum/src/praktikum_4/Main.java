@@ -95,6 +95,8 @@ public class Main {
                                 System.out.println("Pilih Product");
                                 System.out.println("0. Tabungan Umum");
                                 System.out.println("1. Giro Bisnis");
+                                System.out.println("2. RekeningVIP");
+                                System.out.println("3. KartuDebit");
                                 int jenisTabungan = input.nextInt();
 
                                 if (jenisTabungan == 0 ){
@@ -106,6 +108,12 @@ public class Main {
                                     System.out.println("Input batasOverdraft");
                                     double batasOverdraft = input.nextDouble();
                                     Rekening tabungan = new RekeningGiro(noRekening, namaPemilik, saldoAwal, pin, batasOverdraft);
+                                    listAkunAktif.add(tabungan);
+                                } else if(jenisTabungan == 2){
+                                    Rekening tabungan = new RekeningVIP(noRekening, namaPemilik, saldoAwal, pin);
+                                    listAkunAktif.add(tabungan);
+                                } else if (jenisTabungan == 3){
+                                    Rekening tabungan = new KartuDebit(noRekening, namaPemilik, saldoAwal, pin);
                                     listAkunAktif.add(tabungan);
                                 } else {
                                     System.out.println("Maaf. Opsi Tidak Ada Pada Pembuatan Rekening");
