@@ -100,7 +100,7 @@ public class Main {
                                 int jenisTabungan = input.nextInt();
 
                                 if (jenisTabungan == 0 ){
-                                    System.out.println("Input Suku Bunga");
+                                    System.out.println("Input Suku Bunga(dalam persen)");
                                     double sukuBunga = input.nextDouble();
                                     Rekening tabungan = new RekeningTabungan(noRekening, namaPemilik, saldoAwal, pin, sukuBunga);
                                     listAkunAktif.add(tabungan);
