@@ -1,4 +1,4 @@
-package praktikum_5;
+package praktikum_5.praktikum_4;
 
 public class KartuDebit extends Rekening {
     public KartuDebit(String nomor, String nama, Double saldo, String pinAwal){
@@ -6,12 +6,11 @@ public class KartuDebit extends Rekening {
     }
 
     @Override
-    public boolean tarikTunai(double nominal) {
+    public void tarikTunai(double nominal) {
         if (nominal >= 500000){
             System.out.println("Limit Penarikan pada sekali tarik adalah Rp500.000");
-            return false;
+            return;
         }
         super.tarikTunai(nominal);
-        return true;
     }
 }

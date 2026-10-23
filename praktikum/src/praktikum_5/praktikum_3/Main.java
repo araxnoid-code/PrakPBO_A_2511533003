@@ -1,4 +1,4 @@
-package praktikum_5;
+package praktikum_5.praktikum_3;
 
 import java.util.ArrayList;
 import java.util.InputMismatchException;
@@ -7,7 +7,8 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args){
         Scanner input = new Scanner(System.in);
-        ArrayList<Rekening> daftarRekening = new ArrayList<Rekening>();
+        // Rekening akunAktif = null;
+        ArrayList<Rekening> listAkunAktif = new ArrayList<Rekening>();
         int idx = 0;
         boolean isRunning = true;
 
@@ -20,8 +21,6 @@ public class Main {
             System.out.println("4. Cek Informasi Rekening");
             System.out.println("5. Ganti Akun");
             System.out.println("6. Cetak Mutasi(riwayat)");
-            System.out.println("7. Simulasi Akhir Bulan (Khusus Tabungan)");
-            System.out.println("8. Transfer");
             System.out.println("0. keluar");
             System.out.println("Pilih Menu: ");
 
@@ -86,41 +85,14 @@ public class Main {
                             System.out.println(msg);
                             break;
                         }
+                        //
 
                         try{
                             double saldoAwal = input.nextDouble();
                             if (saldoAwal < 50000){
                                 System.out.println("Saldo minimal Rp50K");
                             } else {
-                                System.out.println("Pilih Product");
-                                System.out.println("0. Tabungan Umum");
-                                System.out.println("1. Giro Bisnis");
-                                System.out.println("2. RekeningVIP");
-                                System.out.println("3. KartuDebit");
-                                int jenisTabungan = input.nextInt();
-
-                                if (jenisTabungan == 0 ){
-                                    System.out.println("Input Suku Bunga(dalam persen)");
-                                    double sukuBunga = input.nextDouble();
-                                    Rekening tabungan = new RekeningTabungan(noRekening, namaPemilik, saldoAwal, pin, sukuBunga);
-                                    daftarRekening.add(tabungan);
-                                } else if (jenisTabungan==1){
-                                    System.out.println("Input batasOverdraft");
-                                    double batasOverdraft = input.nextDouble();
-                                    Rekening tabungan = new RekeningGiro(noRekening, namaPemilik, saldoAwal, pin, batasOverdraft);
-                                    daftarRekening.add(tabungan);
-                                } else if(jenisTabungan == 2){
-                                    Rekening tabungan = new RekeningVIP(noRekening, namaPemilik, saldoAwal, pin);
-                                    daftarRekening.add(tabungan);
-                                } else if (jenisTabungan == 3){
-                                    Rekening tabungan = new KartuDebit(noRekening, namaPemilik, saldoAwal, pin);
-                                    daftarRekening.add(tabungan);
-                                } else {
-                                    System.out.println("Maaf. Opsi Tidak Ada Pada Pembuatan Rekening");
-                                    break;
-                                }
-
-                                // listAkunAktif.add(new Rekening(noRekening, namaPemilik, saldoAwal, pin));
+                                listAkunAktif.add(new Rekening(noRekening, namaPemilik, saldoAwal, pin));
                             }
                         } catch(InputMismatchException e){
                             System.out.println("Saldo Harus Angka");
@@ -129,16 +101,16 @@ public class Main {
                         break;
 
                     case 2:
-                        if (daftarRekening.isEmpty()){
+                        if (listAkunAktif.isEmpty()){
                             System.out.println("Error: Mohon Maaf, Anda Belum Memiliki Nomor Rekening!");
                         } else {
-                            if (daftarRekening.get(idx).coba >= 3){
+                            if (listAkunAktif.get(idx).coba >= 3){
                                 System.out.println("Maaf Akun Terblokir");
                             } else {
                             System.out.println("Masukkan Nominal Setor: ");
                             String setor = input.nextLine();
 
-                            if (!daftarRekening.get(idx).setorTunai(setor)){
+                            if (!listAkunAktif.get(idx).setorTunai(setor)){
                                 System.out.println("Nominal harus ANGKA");
                                 input = new Scanner(System.in);
                             };
@@ -148,42 +120,42 @@ public class Main {
 
                     case 3:
 
-                        if (daftarRekening.get(idx).coba >= 3){
+                        if (listAkunAktif.get(idx).coba >= 3){
                             System.out.println("Akun Terblokir");
                         } else {
                         System.out.println("Masukkan Pin: ");
                         String checkPin = input.nextLine().trim();
-                        if (!daftarRekening.get(idx).otentikasi(checkPin)){
-                            daftarRekening.get(idx).coba += 1;
+                        if (!listAkunAktif.get(idx).otentikasi(checkPin)){
+                            listAkunAktif.get(idx).coba += 1;
                             System.out.println("Akses Ditolak: PIN yang Anda masukkan salah!");
                         } else {
                         System.out.println("Masukkan Nominal Penarikan: ");
                         Double tarik = input.nextDouble();
-                        daftarRekening.get(idx).tarikTunai(tarik);
+                        listAkunAktif.get(idx).tarikTunai(tarik);
                         }
                         }
                         break;
 
                     case 4:
-                        if (daftarRekening.isEmpty()){
+                        if (listAkunAktif.isEmpty()){
                             System.out.println("Error: Anda belum memiliki rekening!");
                         } else {
-                            if (daftarRekening.get(idx).coba >= 3){
+                            if (listAkunAktif.get(idx).coba >= 3){
                                 System.out.println("AKUN TERBLOKIR");
                             } else {
 
-                            daftarRekening.get(idx).cekInformasi();
+                            listAkunAktif.get(idx).cekInformasi();
                             }
                         }
                         break;
 
                     case 5:
-                        if (daftarRekening.isEmpty()){
+                        if (listAkunAktif.isEmpty()){
                             System.out.println("Error: Anda belum memiliki rekening!");
                         } else {
                             System.out.println("index   Nama");
-                            for (int i = 0; i < daftarRekening.size(); i++){
-                                System.out.println(i + "    " + daftarRekening.get(i).getNamaPemilik());
+                            for (int i = 0; i < listAkunAktif.size(); i++){
+                                System.out.println(i + "    " + listAkunAktif.get(i).getNamaPemilik());
                             }
                             System.out.println("Pilih Index Rekening: ");
                             int opsi = input.nextInt();
@@ -192,51 +164,19 @@ public class Main {
                         break;
 
                     case 6:
-                    if (daftarRekening.get(idx).coba >= 3){
+                    if (listAkunAktif.get(idx).coba >= 3){
                         System.out.println("Akun Terblokir");
                     } else {
                         System.out.println("Masukkan Pin: ");
                         String checkPinMutasi = input.nextLine().trim();
 
-                        if (!daftarRekening.get(idx).otentikasi(checkPinMutasi)){
-                            daftarRekening.get(idx).coba += 1;
+                        if (!listAkunAktif.get(idx).otentikasi(checkPinMutasi)){
+                            listAkunAktif.get(idx).coba += 1;
                             System.out.println("Akses Ditolak: PIN yang Anda masukkan salah!");
                         } else {
 
 
-                            daftarRekening.get(idx).cetakMutasi();
-                            }
-                        }
-                        break;
-                    case 7:
-                        Rekening akun = daftarRekening.get(idx);
-                        Boolean check_tabungan = akun instanceof RekeningTabungan;
-                        if (!check_tabungan){
-                            System.out.println("Gagal: Fitur bunga akhir bulan hanya berlaku untuk Rekening Tabungan.");
-                            break;
-                        }
-                        RekeningTabungan tabungan = (RekeningTabungan) akun;
-                        tabungan.tambahBungaAkhirBulan();
-                        break;
-
-                    case 8:
-                        System.out.println("Masukkan Nomor Rekening Tujuan");
-                        String nomorRekeningTujuan = input.nextLine().trim();
-                        for (int i = 0; i < daftarRekening.size(); i++){
-                            Rekening akunTujuan = daftarRekening.get(i);
-                            if (akunTujuan.getNomorRekening().equals(nomorRekeningTujuan)){
-                                System.out.println("Masukkan Pin");
-                                String pinRekening = input.nextLine().trim();
-
-                                System.out.println("Masukkan Nominal");
-                                Double n = input.nextDouble();
-                                Rekening akunSaatIni = daftarRekening.get(idx);
-                                akunSaatIni.transfer(akunTujuan, n, pinRekening);
-                                break;
-                            }
-
-                            if (i + 1 ==  daftarRekening.size()){
-                                System.out.println("Rekening Tidak Ditemukan.");
+                            listAkunAktif.get(idx).cetakMutasi();
                             }
                         }
                         break;

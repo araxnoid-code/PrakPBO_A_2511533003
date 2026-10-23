@@ -1,4 +1,4 @@
-package praktikum_5;
+package praktikum_5.praktikum_5;
 
 public class RekeningTabungan extends Rekening {
     private double sukuBunga;

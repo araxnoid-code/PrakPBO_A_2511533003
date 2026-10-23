@@ -1,4 +1,4 @@
-package praktikum_5;
+package praktikum_5.praktikum_4;
 
 public class Transaksi{
     private String idTransaksi;

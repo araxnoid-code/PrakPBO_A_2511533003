@@ -1,4 +1,4 @@
-package praktikum_5;
+package praktikum_5.praktikum_5;
 
 public class RekeningVIP extends Rekening {
     public RekeningVIP(String nomor, String nama, Double saldo, String pinAwal){
