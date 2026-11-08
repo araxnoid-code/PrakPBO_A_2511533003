@@ -68,7 +68,7 @@ public class ShopApp {
     System.out.println(receipt.toText());
 
  
-    PaymentMethod voucher = new PaymentMethod() { // anonymous class
+    PaymentMethod voucher = new PaymentMethod() { 
         private long remaining = 50_000;
         @Override
         public String getName() { return "Voucher Promo Hari Ini"; }

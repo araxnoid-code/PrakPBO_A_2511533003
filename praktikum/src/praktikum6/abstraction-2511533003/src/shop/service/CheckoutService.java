@@ -37,11 +37,16 @@ public class CheckoutService {
             return false;
         }
 
-        long total = total(items, shipping);
+        long total = grandTotal(items, shipping, payment);
         return payment.pay(total);
     }
 
     public boolean refund(RefundablePayment payment, long amount){
         return payment.refund(amount);
+    }
+
+    public long grandTotal(List<Product> items, ShippingService shipping, PaymentMethod payment){
+        long total = total(items, shipping);
+        return total + payment.adminFee(total);
     }
 }
